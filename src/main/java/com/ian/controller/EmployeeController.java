@@ -1,6 +1,7 @@
 package com.ian.controller;
 
 import com.ian.entity.Employee;
+import com.ian.entity.PageBean;
 import com.ian.entity.Result;
 import com.ian.service.EmployeeService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,10 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -51,15 +49,46 @@ public class EmployeeController {
 
     /**
      * 員工登出
+     *
      * @param request
      * @return
      */
     @PostMapping("/logout")
     public Result<String> logout(HttpServletRequest request) {
-            //清理Seesion中保存的當前登入員工的id
-            request.getSession().removeAttribute("employee");
-            return Result.success("退出成功");
+        //清理Seesion中保存的當前登入員工的id
+        request.getSession().removeAttribute("employee");
+        return Result.success("退出成功");
 
+    }
+
+    /**
+     * 新增員工
+     *
+     * @param employee
+     * @return
+     */
+    @PostMapping
+    public Result<String> addemp(HttpServletRequest request, @RequestBody Employee employee) {
+        log.info("新增的員工信息：{}", employee.toString());
+
+        employeeService.addemp(request, employee);
+
+        return Result.success("新增成功");
+    }
+
+    /**
+     * 員工列表分頁查詢
+     *
+     * @param page
+     * @param pageSize
+     * @param name
+     * @return
+     */
+    @GetMapping("/page")
+    public Result<PageBean> page(int page, int pageSize, String name) {
+        log.info("{},{},{}", page, pageSize, name);
+        PageBean pageBean = employeeService.page(page, pageSize, name);
+        return Result.success(pageBean);
     }
 
 
