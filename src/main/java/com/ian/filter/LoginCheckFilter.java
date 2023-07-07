@@ -27,7 +27,7 @@ public class LoginCheckFilter implements Filter {
 
         log.info("攔截到的請求：{}",requestURI);
         //定義不需要處理的請求路徑
-        String[] rules =new String[]{"/employee/login","/employee/logout","/backend/**","/front/**"};
+        String[] rules =new String[]{"/employee/login","/employee/logout","/backend/**","/front/**","/common/**"};
         //2.判斷本次請求是否需要處理
         boolean check = check(rules, requestURI);
         //3.如果不需要處理直接放行

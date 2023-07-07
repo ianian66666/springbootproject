@@ -10,4 +10,8 @@ public interface EmployeeService {
     void addemp(HttpServletRequest request,Employee employee);
 
     PageBean page(int page, int pageSize, String name);
+
+    void update(HttpServletRequest request, Employee employee);
+
+    Employee getById(Integer id);
 }

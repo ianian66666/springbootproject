@@ -91,5 +91,32 @@ public class EmployeeController {
         return Result.success(pageBean);
     }
 
+    /**
+     * 根據id修改員工信息
+     * @param employee
+     * @return
+     */
+    @PutMapping
+    public Result<String> update(HttpServletRequest request,@RequestBody Employee employee){
+        log.info("員工：{}",employee.toString());
+        employeeService.update(request,employee);
+        return Result.success("員工訊息修改完成");
+    }
+
+    /**
+     * 根據id查詢員工
+     * @param id
+     * @return
+     */
+
+    @RequestMapping("/{id}")
+    public Result<Employee> getById(@PathVariable Integer id){
+      Employee employee=  employeeService.getById(id);
+      if (employee != null) {
+          return Result.success(employee);
+      }
+      return  Result.error("沒有查詢到對應員工信息");
+    }
+
 
 }

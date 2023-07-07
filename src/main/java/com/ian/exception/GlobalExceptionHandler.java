@@ -30,4 +30,11 @@ public class GlobalExceptionHandler {
         return Result.error("未知錯誤");
 
     }
+
+    @ExceptionHandler(CustomerException.class)
+    public Result<String> customerExceptionHandler(CustomerException ex) {
+        log.error(ex.getMessage());
+        return Result.error(ex.getMessage());
+
+    }
 }

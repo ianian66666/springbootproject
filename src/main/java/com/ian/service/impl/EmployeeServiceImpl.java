@@ -50,4 +50,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         PageBean pageBean = new PageBean(p.getTotal(),p.getResult());
         return   pageBean   ;
     }
+
+    @Override
+    public void update(HttpServletRequest request, Employee employee) {
+        Long empId = (Long)request.getSession().getAttribute("employee");
+            employee.setUpdateUser(empId);
+            employee.setUpdateTime(LocalDateTime.now());
+            employeeMapper.update(employee);
+
+
+
+    }
+
+    @Override
+    public Employee getById(Integer id) {
+        Employee employee=  employeeMapper.getById(id);
+        return employee;
+    }
 }
