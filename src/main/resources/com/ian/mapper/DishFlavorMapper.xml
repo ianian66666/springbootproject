@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ian.mapper.DishFlavorMapper">
+
+    <insert id="saveDishFlavor" parameterType="java.util.List">
+        INSERT INTO dish_flavor(dish_id, name, value, create_time, update_time, create_user, update_user)
+        values
+        <foreach collection="list" item="dishFlavor" index="index" open="" separator="," close="">
+            (
+            #{dishFlavor.dishId},#{dishFlavor.name},#{dishFlavor.value},#{dishFlavor.createTime},
+            #{dishFlavor.updateTime},#{dishFlavor.createUser},#{dishFlavor.updateUser}
+            )
+        </foreach>
+    </insert>
+    <delete id="deleteByDishId" parameterType="Long">
+      DELETE  from dish_flavor where dish_id in
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+    </delete>
+</mapper>

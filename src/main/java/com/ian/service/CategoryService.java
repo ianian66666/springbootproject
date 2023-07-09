@@ -5,6 +5,7 @@ import com.ian.entity.PageBean;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CategoryService {
     void save(HttpServletRequest request,Category category);
@@ -16,4 +17,8 @@ public interface CategoryService {
     void update(HttpServletRequest request, Category category);
 
     List<Category> list(Category category);
+
+    List<Category> selectByName(Set<Long> cateID);
+
+    Category getByid(Long categoryId);
 }

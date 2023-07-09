@@ -4,6 +4,7 @@ import com.ian.entity.Category;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper
 public interface CategoryMapper {
@@ -23,4 +24,9 @@ public interface CategoryMapper {
 
     @Select("select *from category where type=#{type} order by sort asc ,update_time desc")
     List<Category> listBytype(Category category);
+
+    List<Category>  selectByName( @Param("set") Set<Long> cateId);
+
+    @Select("SELECT *from category where id=#{id}")
+    Category getByid(@Param("id") Long categoryId);
 }

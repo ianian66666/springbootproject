@@ -3,21 +3,19 @@ package com.ian.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.ian.entity.Category;
-import com.ian.entity.Employee;
 import com.ian.entity.PageBean;
 import com.ian.exception.CustomerException;
 import com.ian.mapper.CategoryMapper;
 import com.ian.mapper.DishMapper;
 import com.ian.mapper.SetmealMapper;
 import com.ian.service.CategoryService;
-import com.ian.service.DishService;
-import com.ian.service.SetmealService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -80,5 +78,16 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> list(Category category) {
         List<Category> categoryList = categoryMapper.listBytype(category);
         return categoryList;
+    }
+
+    @Override
+    public List<Category> selectByName(Set<Long> cateID) {
+        List<Category>  categoryList =   categoryMapper.selectByName(cateID);
+        return categoryList;
+    }
+
+    @Override
+    public Category getByid(Long categoryId) {
+        return categoryMapper.getByid(categoryId);
     }
 }
